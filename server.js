@@ -10,7 +10,7 @@ app.use((req, res, next) => {
     "GET, POST, PUT, DELETE, OPTIONS"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Max-Age", "86400"); // Cache preflight request for 1 day
+  res.setHeader("Access-Control-Max-Age", "86400");
 
   if (req.method === "OPTIONS") {
     res.sendStatus(200);
@@ -24,8 +24,8 @@ const corsServer = corsAnywhere.createServer({
   originWhitelist: [], // Allow all origins
   requireHeader: ["origin", "x-requested-with"],
   removeHeaders: ["cookie", "cookie2"],
-  // Disable following redirects for preflight requests
-  maxRedirects: 0,
+  // Allow redirects for actual requests
+  maxRedirects: 5,
 });
 
 app.use((req, res) => {
